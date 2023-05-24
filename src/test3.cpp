@@ -55,7 +55,7 @@ class Test1 : public rclcpp::Node{
 
         void lidar_callback(const LaserScan::SharedPtr msg) const {
             scan_data = msg;
-            find_gap(181);
+            find_gap(81);
         }
 
         void odom_callback(const Odometry::SharedPtr msg) const {

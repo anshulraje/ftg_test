@@ -41,6 +41,8 @@ add_executable(test3 src/test3.cpp)
 ament_target_dependencies(test3 rclcpp ackermann_msgs sensor_msgs nav_msgs geometry_msgs visualization_msgs tf2)
 add_executable(test4 src/test4.cpp)
 ament_target_dependencies(test4 rclcpp ackermann_msgs sensor_msgs nav_msgs geometry_msgs visualization_msgs tf2)
+add_executable(test5 src/test5.cpp)
+ament_target_dependencies(test5 rclcpp ackermann_msgs sensor_msgs nav_msgs geometry_msgs visualization_msgs tf2)
 
 install(TARGETS
   ackermann
@@ -48,6 +50,7 @@ install(TARGETS
   test2
   test3
   test4
+  test5
   DESTINATION lib/${PROJECT_NAME}
 )
 

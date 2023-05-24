@@ -55,7 +55,7 @@ class Test1 : public rclcpp::Node{
 
         void lidar_callback(const LaserScan::SharedPtr msg) const {
             scan_data = msg;
-            find_gap(50);
+            find_gap(181);
         }
 
         void odom_callback(const Odometry::SharedPtr msg) const {
@@ -64,7 +64,7 @@ class Test1 : public rclcpp::Node{
             odom.yaw = yaw_from_quaternion(msg->pose.pose.orientation);
         }
 
-        vector<float> trim_ranges() const {
+        vector<float> trim_filter_ranges() const {
             auto ranges = scan_data->ranges;
 
             vector<float>::iterator it1 = ranges.begin();
@@ -74,6 +74,19 @@ class Test1 : public rclcpp::Node{
             vector<float>::iterator it3 = ranges.end()-149;
             vector<float>::iterator it4 = ranges.end();
             ranges.erase(it3, it4);
+
+            auto last_index = int(ranges.size()-1);
+            float distance = 0;
+            float max_distance = 12.5;
+
+            for(int i = 0; i<=last_index; i++){
+                distance = ranges.at(i);
+
+                if(distance > max_distance)
+                    ranges.at(i) = 0;
+                else
+                    continue;
+            }
 
             return ranges;
         }
@@ -108,7 +121,7 @@ class Test1 : public rclcpp::Node{
         }
 
         void find_gap(int gap_size) const {
-            auto ranges = trim_ranges();
+            auto ranges = trim_filter_ranges();
 
             auto last_index = int(ranges.size()-1);
 
@@ -122,7 +135,7 @@ class Test1 : public rclcpp::Node{
 
                 if(temp_sum > max_gap){
                     max_gap = temp_sum;
-                    max_gap_index = max_element(ranges.begin()+i-1,ranges.begin()+i+gap_size-1) - ranges.begin();
+                    max_gap_index = i+int(floor(gap_size/2));
                 }
                 else
                     continue;

@@ -75,7 +75,16 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "csetjmp": "cpp",
+        "codecvt": "cpp",
+        "cuchar": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "filesystem": "cpp",
+        "scoped_allocator": "cpp",
+        "valarray": "cpp",
+        "charconv": "cpp"
     },
     "python.analysis.extraPaths": [
         "/home/anshulraje/sim_ws/install/test_codes/lib/python3.8/site-packages",
